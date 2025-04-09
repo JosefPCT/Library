@@ -13,4 +13,12 @@ A collection of book objects
 - Add a button on each book's display to change its `read` status.
 
 To do:
-Figure out how to manipulate the form data sent
+- Figure out a way on the duplicated books
+    - Idea: use removeChild to remove the child of the .books div when calling the showBook function
+
+- Add a button on each book's display to remove the book from the library
+    - Idea: give appropriate element the data-attribute property with the value of the unique id of the object, and use that to remove an object
+
+- Add a button on each book's display to changs its `read` status
+    - Idea: Create a Book prototype function that can toggle the hasRead key of the object
+    

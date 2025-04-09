@@ -4,10 +4,12 @@ let booksContainer = document.querySelector(".books");
 let addBookButton = document.querySelector("#add-book-button");
 let dialog = document.getElementById("dialog");
 let submitBookButton = document.getElementById("submit-book");
+// let deleteButtons = document.querySelectorAll(".delete-button");
 
 // Event Listeners
 addBookButton.addEventListener("click", addBook);
 submitBookButton.addEventListener("click", submitBook);
+// deleteButtons.addEventListener("click", deleteBook);
 
 // Book Constructor function
 function Book(id,title,author,noOfPages, hasRead=false) {
@@ -32,16 +34,25 @@ function showBookToPage(item){
     let bookAuthor = document.createElement("p");
     let bookPages = document.createElement("p");
     let bookReadStatus = document.createElement("p");
+    let bookDeleteButton = document.createElement("button");
 
+    newBookContainer.setAttribute("class", "card");
+
+    newBookContainer.setAttribute("data-attribute", item.id);
     bookTitle.textContent = `Title: `+ item.title;
     bookAuthor.textContent = `Author: `+ item.author;
     bookPages.textContent = `Pages: `+ item.noOfPages;
     bookReadStatus.textContent = `Book has been read?: ` + item.hasRead;
+    bookDeleteButton.textContent = "Delete book";
+
+    bookDeleteButton.setAttribute("class", "delete-button");
+    bookDeleteButton.addEventListener("click", deleteBook);
 
     newBookContainer.appendChild(bookTitle);
     newBookContainer.appendChild(bookAuthor);
     newBookContainer.appendChild(bookPages);
     newBookContainer.appendChild(bookReadStatus);
+    newBookContainer.appendChild(bookDeleteButton);
 
     // console.log("new book:")
     // console.log(newBookContainer);
@@ -50,6 +61,7 @@ function showBookToPage(item){
 }
 
 function showBooks(){
+    booksContainer.innerHTML = ""; // clears the container before putting in more children
     library.forEach(showBookToPage);
 }
 
@@ -98,6 +110,19 @@ function submitBook(e){
     dialog.close();
     console.log("submit book button clicked");
 }
+
+function deleteBook(e){
+    console.log("clicked delete book button");
+    console.log(e.target.parentNode.getAttribute("data-attribute"));
+    let objectId = e.target.parentNode.getAttribute("data-attribute");
+    console.log(library);
+    library = library.filter((item) => !(item.id === objectId));
+    // console.log(result);
+    // console.log(library);
+    showBooks();
+}
+
+
 
 // addBookToLibrary(crypto.randomUUID(), "test title", "test author", 25);
 // addBookToLibrary(crypto.randomUUID(), "Lord of the Rings", "Tolkien", 59, true);
