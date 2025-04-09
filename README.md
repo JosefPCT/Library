@@ -19,6 +19,7 @@ To do:
 - Add a button on each book's display to remove the book from the library
     - Idea: give appropriate element the data-attribute property with the value of the unique id of the object, and use that to remove an object
 
-- Add a button on each book's display to changs its `read` status
+- Add a button on each book's display to change its `read` status
     - Idea: Create a Book prototype function that can toggle the hasRead key of the object
-    
+
+- 

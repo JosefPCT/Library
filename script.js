@@ -4,12 +4,10 @@ let booksContainer = document.querySelector(".books");
 let addBookButton = document.querySelector("#add-book-button");
 let dialog = document.getElementById("dialog");
 let submitBookButton = document.getElementById("submit-book");
-// let deleteButtons = document.querySelectorAll(".delete-button");
 
 // Event Listeners
 addBookButton.addEventListener("click", addBook);
 submitBookButton.addEventListener("click", submitBook);
-// deleteButtons.addEventListener("click", deleteBook);
 
 // Book Constructor function
 function Book(id,title,author,noOfPages, hasRead=false) {
@@ -26,12 +24,16 @@ Book.prototype.toggleRead = function (){
 };
 
 // Function to create a book, and add to library array
+// Instantiate a new Book object with the constructor and add it to the global array
 function addBookToLibrary(id, title, author, noOfPages, hasRead){
     let newBook = new Book(id, title, author,noOfPages, hasRead);  
     library.push(newBook);
 }
 
 // Function to create the elements needed to show book to the page
+// Create elements according to the data, set a data-attribute to the card container
+// Add event listeners to the relevant buttons with their own functions
+// Then show it to the page by appending the created elements to the books container
 function showBookToPage(item){
     console.log("Showing book...");
     let newBookContainer = document.createElement("div");
@@ -65,24 +67,32 @@ function showBookToPage(item){
     newBookContainer.appendChild(bookDeleteButton);
     newBookContainer.appendChild(toggleReadButton);
 
-    // console.log("new book:")
-    // console.log(newBookContainer);
-
     booksContainer.appendChild(newBookContainer);
 }
 
+// Function to start the ShowBook function
+// Resets the books container to avoid duplication
+// Iterates through the array and passes the object to the showBookToPage function to create and append the elements
 function showBooks(){
     booksContainer.innerHTML = ""; // clears the container before putting in more children
     library.forEach(showBookToPage);
 }
 
 // Function to show the form modal
+// Use to show the dialog tag when clicking the add book button
 function addBook(){
     console.log ("clicked add book button");
     dialog.showModal();
 }
 
 // Function to submit the form, prevents the default of sending data to server, to manipulate data in JavaScript
+// Prevents the default behavior of submit
+// Get the data sent using FormData, 
+// Used .get method of FormData to store the values
+// Added logic for the readStatus to pass the appropriate value
+// Uses crypto function to create a unique id for the object, which will aid in deleting the object and toggling statuses
+// Use the .reset method of form to clear the values after submitting
+// Use .close method of dialog element to close the dialog/modal box after submitting
 function submitBook(e){
     e.preventDefault();
     
@@ -104,25 +114,16 @@ function submitBook(e){
 
     addBookToLibrary(crypto.randomUUID(), title, author, pages, readStatus);
     showBooks();
-    // console.log(title);
-    // console.log(author);
-    // console.log(pages);
-    // console.log(readStatus);
-    
-    // let title = document.getElementById("book-name");
-    // let author = document.getElementById("book-author");
-    // let pages = document.getElementById("book-pages");
-    // let readStatus = document.getElementById("book-read-status");
-    // console.log(title.value);
-    // console.log(author.value);
-    // console.log(pages.value);
-    // console.log(readStatus.value);
+
     form.reset();
     dialog.close();
     console.log("submit book button clicked");
 }
 
-// 
+// Function to delete a books by clicking the delete book button
+// Get the id of the object from the data-attribute of the parent div
+// Filter through the array collection, and only look for the objects that doesn't match the id
+// Then call the showBooks() function to re-clear the page
 function deleteBook(e){
     console.log("clicked delete book button");
     console.log(e.target.parentNode.getAttribute("data-attribute"));
@@ -133,6 +134,9 @@ function deleteBook(e){
 }
 
 // Function to toggle the read status
+// Get the id of the object from the data-attribute of the parent div
+// Loop through the objects to find the correct object, and call the toggleRead prototype method
+// Then call showBooks function to re-clear objects in the page
 function toggleReadStatus(e){
     let objectId = e.target.parentNode.getAttribute("data-attribute");
     console.log(library);
@@ -145,17 +149,5 @@ function toggleReadStatus(e){
     showBooks();
 }
 
-// function toggleRead(obj){
-//     obj.hasRead = !(obj.hasRead);
-// }
 
 
-// addBookToLibrary(crypto.randomUUID(), "test title", "test author", 25);
-// addBookToLibrary(crypto.randomUUID(), "Lord of the Rings", "Tolkien", 59, true);
-// showBooks();
-
-
-
-// console.log(crypto.randomUUID());
-// let book = new Book(crypto.randomUUID(), "test title", "test author");
-// let book2 = new Book(crypto.randomUUID(), "Lord of the Rings", "Tolkien");
