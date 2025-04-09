@@ -20,6 +20,11 @@ function Book(id,title,author,noOfPages, hasRead=false) {
     this.hasRead = hasRead;
 } 
 
+Book.prototype.toggleRead = function (){
+    console.log("toggling read...");
+    this.hasRead = !(this.hasRead);
+};
+
 // Function to create a book, and add to library array
 function addBookToLibrary(id, title, author, noOfPages, hasRead){
     let newBook = new Book(id, title, author,noOfPages, hasRead);  
@@ -35,6 +40,7 @@ function showBookToPage(item){
     let bookPages = document.createElement("p");
     let bookReadStatus = document.createElement("p");
     let bookDeleteButton = document.createElement("button");
+    let toggleReadButton = document.createElement("button");
 
     newBookContainer.setAttribute("class", "card");
 
@@ -44,15 +50,20 @@ function showBookToPage(item){
     bookPages.textContent = `Pages: `+ item.noOfPages;
     bookReadStatus.textContent = `Book has been read?: ` + item.hasRead;
     bookDeleteButton.textContent = "Delete book";
+    toggleReadButton.textContent = "Read Status";
 
     bookDeleteButton.setAttribute("class", "delete-button");
     bookDeleteButton.addEventListener("click", deleteBook);
+
+    toggleReadButton.setAttribute("class", "toggle-read");
+    toggleReadButton.addEventListener("click", toggleReadStatus);
 
     newBookContainer.appendChild(bookTitle);
     newBookContainer.appendChild(bookAuthor);
     newBookContainer.appendChild(bookPages);
     newBookContainer.appendChild(bookReadStatus);
     newBookContainer.appendChild(bookDeleteButton);
+    newBookContainer.appendChild(toggleReadButton);
 
     // console.log("new book:")
     // console.log(newBookContainer);
@@ -111,17 +122,32 @@ function submitBook(e){
     console.log("submit book button clicked");
 }
 
+// 
 function deleteBook(e){
     console.log("clicked delete book button");
     console.log(e.target.parentNode.getAttribute("data-attribute"));
     let objectId = e.target.parentNode.getAttribute("data-attribute");
     console.log(library);
     library = library.filter((item) => !(item.id === objectId));
-    // console.log(result);
-    // console.log(library);
     showBooks();
 }
 
+// Function to toggle the read status
+function toggleReadStatus(e){
+    let objectId = e.target.parentNode.getAttribute("data-attribute");
+    console.log(library);
+    library.forEach((item) => {
+        if (item.id === objectId){
+            item.toggleRead();
+            return;
+        }
+    });
+    showBooks();
+}
+
+// function toggleRead(obj){
+//     obj.hasRead = !(obj.hasRead);
+// }
 
 
 // addBookToLibrary(crypto.randomUUID(), "test title", "test author", 25);
