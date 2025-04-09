@@ -12,3 +12,5 @@ A collection of book objects
 - Add a button on each book's display to remove the book from the library
 - Add a button on each book's display to change its `read` status.
 
+To do:
+Figure out how to manipulate the form data sent

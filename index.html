@@ -9,7 +9,30 @@
 </head>
 <body>
 <h1>Library</h1>
-<div class="add-book-container"><button>Add a book</button></div>
+<div class="dialog-container">
+    <dialog id="dialog">
+        <form action="index.html" method="POST" id="bookform">
+            <p>
+                <label for="book-name">Book Name:</label>
+                <input type="text" id="book-name" name="book-name" required>
+            </p>
+            <p>
+                <label for="book-author">Author:</label>
+                <input type="text" id="book-author" name="book-author" required>
+            </p>
+            <p>
+                <label for="book-pages">Number of Pages:</label>
+                <input type="number" id="book-pages" name="book-pages" required>
+            </p>
+            <p>
+                <label for="book-read-status">Book has been read?</label>
+                <input type="checkbox" name="book-read-status" id="book-read-status" value="true">
+            </p>
+            <button type="submit" id="submit-book">Submit Book</button>
+        </form>
+    </dialog>
+</div>
+<div class="add-book-container"><button id="add-book-button">Add a book</button></div>
 <div class="books"></div>
 </body>
 </html>
