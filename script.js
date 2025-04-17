@@ -1,13 +1,10 @@
 // Global variables
 let library = [];
 let booksContainer = document.querySelector(".books");
-let addBookButton = document.querySelector("#add-book-button");
 let dialog = document.getElementById("dialog");
-let submitBookButton = document.getElementById("submit-book");
 
-// Event Listeners
-addBookButton.addEventListener("click", addBook);
-submitBookButton.addEventListener("click", submitBook);
+
+
 
 // Book Constructor function
 class Book{
@@ -17,18 +14,49 @@ class Book{
         this.author = author;
         this.noOfPages = noOfPages;
         this.hasRead = hasRead;
+        console.log("book constructor class...");
     }
 
     toggleRead() {
         console.log("toggling read...");
         this.hasRead = !(this.hasRead);
     }
-}; 
+};
 
-// Book.prototype.toggleRead = function (){
-//     console.log("toggling read...");
-//     this.hasRead = !(this.hasRead);
-// };
+class Library{
+    library  = [];
+
+    constructor(){
+
+    }
+
+    // Method to add event listeners
+    addListeners(){
+        // let addBookButton = document.querySelector("#add-book-button");
+        // let submitBookButton = document.getElementById("submit-book");
+
+        // addBookButton.addEventListener("click", this.addBook);
+        // submitBookButton.addEventListener("click", submitBook);
+    }
+
+
+    // A static method of Library to show an add book form
+    // Use to show the dialog tag when clicking the add book button 
+    static addBook(){
+        console.log ("clicked add book button");
+        dialog.showModal();
+    }
+}
+
+let newLibrary = new Library;
+
+let addBookButton = document.querySelector("#add-book-button");
+let submitBookButton = document.getElementById("submit-book");
+
+
+addBookButton.addEventListener("click", Library.addBook);
+submitBookButton.addEventListener("click", submitBook);
+
 
 // Function to create a book, and add to library array
 // Instantiate a new Book object with the constructor and add it to the global array
@@ -85,12 +113,12 @@ function showBooks(){
     library.forEach(showBookToPage);
 }
 
-// Function to show the form modal
-// Use to show the dialog tag when clicking the add book button
-function addBook(){
-    console.log ("clicked add book button");
-    dialog.showModal();
-}
+// // Function to show the form modal
+// // Use to show the dialog tag when clicking the add book button
+// function addBook(){
+//     console.log ("clicked add book button");
+//     dialog.showModal();
+// }
 
 // Function to submit the form, prevents the default of sending data to server, to manipulate data in JavaScript
 // Prevents the default behavior of submit
