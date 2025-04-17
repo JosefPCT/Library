@@ -10,18 +10,25 @@ addBookButton.addEventListener("click", addBook);
 submitBookButton.addEventListener("click", submitBook);
 
 // Book Constructor function
-function Book(id,title,author,noOfPages, hasRead=false) {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.noOfPages = noOfPages;
-    this.hasRead = hasRead;
-} 
+class Book{
+    constructor(id,title,author,noOfPages, hasRead=false) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.noOfPages = noOfPages;
+        this.hasRead = hasRead;
+    }
 
-Book.prototype.toggleRead = function (){
-    console.log("toggling read...");
-    this.hasRead = !(this.hasRead);
-};
+    toggleRead() {
+        console.log("toggling read...");
+        this.hasRead = !(this.hasRead);
+    }
+}; 
+
+// Book.prototype.toggleRead = function (){
+//     console.log("toggling read...");
+//     this.hasRead = !(this.hasRead);
+// };
 
 // Function to create a book, and add to library array
 // Instantiate a new Book object with the constructor and add it to the global array
@@ -148,6 +155,5 @@ function toggleReadStatus(e){
     });
     showBooks();
 }
-
 
 
